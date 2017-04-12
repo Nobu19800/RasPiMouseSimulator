@@ -22,12 +22,11 @@
 #include <math.h>
 
 
-#define DEFAULT_STICK_WIDTH 0.005
-#define DEFAULT_STICK_RADIUS (M_PI/4.0)
 
 
-#define DEFAULT_BODY_LENGTH 0.1
-#define DEFAULT_BODY_WIDTH 0.05
+
+#define DEFAULT_BODY_LENGTH 0.05
+#define DEFAULT_BODY_WIDTH 0.08
 #define DEFAULT_BODY_HEIGHT 0.05
 
 
@@ -39,92 +38,149 @@
 #define DEFAULT_BODY_MASS 0.5
 
 #define DEFAULT_WHEEL_RADIUS 0.02
-#define DEFAULT_WHEEL_WIDTH 0.02
+#define DEFAULT_WHEEL_WIDTH 0.005
 
-#define DEFAULT_WHEEL_X (DEFAULT_BODY_X + 0.02)
-#define DEFAULT_WHEEL_Y (DEFAULT_BODY_Y + 0.045)
-#define DEFAULT_WHEEL_Z (DEFAULT_BODY_Z - 0.025)
+#define DEFAULT_WHEEL_X (DEFAULT_BODY_X)
+#define DEFAULT_WHEEL_Y (DEFAULT_BODY_Y + DEFAULT_BODY_WIDTH / 2.0 + DEFAULT_WHEEL_WIDTH / 2.0)
+#define DEFAULT_WHEEL_Z (DEFAULT_BODY_Z - 0.015)
 
 #define DEFAULT_WHEEL_MASS 0.01
 
-#define DEFAULT_BALL_RADIUS 0.01
 
-#define DEFAULT_BALL_X (DEFAULT_BODY_X - 0.05)
-#define DEFAULT_BALL_Y DEFAULT_BODY_Y
-#define DEFAULT_BALL_Z (DEFAULT_BODY_Z - 0.035)
+#define DEFAULT_TOPPLATE1_LENGTH DEFAULT_BODY_LENGTH
+#define DEFAULT_TOPPLATE1_WIDTH DEFAULT_BODY_WIDTH
+#define DEFAULT_TOPPLATE1_HEIGHT 0.005
 
-#define DEFAULT_BALL_MASS 0.01
-
-#define DEFAULT_TOUCHSENSOR_LENGTH 0.035
-#define DEFAULT_TOUCHSENSOR_WIDTH 0.02
-#define DEFAULT_TOUCHSENSOR_HEIGHT 0.02
-
-#define DEFAULT_TOUCHSENSOR_X (DEFAULT_BODY_X + 0.15)
-#define DEFAULT_TOUCHSENSOR_Y (DEFAULT_BODY_Y + DEFAULT_BODY_WIDTH/2.0 + DEFAULT_TOUCHSENSOR_WIDTH/2.0 + DEFAULT_STICK_WIDTH*2)
-#define DEFAULT_TOUCHSENSOR_Z (DEFAULT_BODY_Z)
-
-#define DEFAULT_TOUCHSENSOR_MASS 0.01
-
-#define DEFAULT_TOUCHSENSOR2_MOVE 0.004
-#define DEFAULT_TOUCHSENSOR2_LENGTH (DEFAULT_TOUCHSENSOR2_MOVE*2)
-#define DEFAULT_TOUCHSENSOR2_WIDTH (DEFAULT_TOUCHSENSOR_WIDTH*0.8)
-#define DEFAULT_TOUCHSENSOR2_HEIGHT (DEFAULT_TOUCHSENSOR_HEIGHT*0.8)
-#define DEFAULT_TOUCHSENSOR2_X (DEFAULT_TOUCHSENSOR_X + DEFAULT_TOUCHSENSOR_LENGTH/2.0)
-#define DEFAULT_TOUCHSENSOR2_Y DEFAULT_TOUCHSENSOR_Y
-#define DEFAULT_TOUCHSENSOR2_Z DEFAULT_TOUCHSENSOR_Z
-#define DEFAULT_TOUCHSENSOR2_MASS 0.01
-
-#define DEFAULT_SPRINFG_VALUE 10
-
-#define DEFAULT_GYROSENSOR_LENGTH 0.02
-#define DEFAULT_GYROSENSOR_WIDTH 0.04
-#define DEFAULT_GYROSENSOR_HEIGHT 0.02
-
-#define DEFAULT_GYROSENSOR_X (DEFAULT_BODY_X - 0.06)
-#define DEFAULT_GYROSENSOR_Y DEFAULT_BODY_Y
-#define DEFAULT_GYROSENSOR_Z (DEFAULT_BODY_Z + 0.06)
-
-#define DEFAULT_GYROSENSOR_MASS 0.01
+#define DEFAULT_TOPPLATE1_X DEFAULT_BODY_X
+#define DEFAULT_TOPPLATE1_Y DEFAULT_BODY_Y
+#define DEFAULT_TOPPLATE1_Z (DEFAULT_BODY_Z + DEFAULT_BODY_HEIGHT/2.0 + DEFAULT_BOTTOMPLATE1_HEIGHT/2.0)
 
 
-#define DEFAULT_COLOURSENSOR_LENGTH 0.01
-#define DEFAULT_COLOURSENSOR_WIDTH 0.01
-#define DEFAULT_COLOURSENSOR_HEIGHT 0.03
+#define DEFAULT_TOPPLATE1_MASS 0.01
 
 
-#define DEFAULT_COLOURSENSOR_X (DEFAULT_BODY_X + 0.07)
-#define DEFAULT_COLOURSENSOR_Y (DEFAULT_BODY_Y + 0.02)
-#define DEFAULT_COLOURSENSOR_Z (DEFAULT_BODY_Z - 0.01)
 
-#define DEFAULT_COLOURSENSOR_MASS 0.01
+#define DEFAULT_TOPPLATE2_RADIUS DEFAULT_TOPPLATE1_WIDTH/2.0
+#define DEFAULT_TOPPLATE2_HEIGHT DEFAULT_TOPPLATE1_HEIGHT
 
-
-#define DEFAULT_MMOTOR_LENGTH 0.01
-#define DEFAULT_MMOTOR_WIDTH 0.03
-#define DEFAULT_MMOTOR_HEIGHT 0.01
-
-#define DEFAULT_MMOTOR_X (DEFAULT_BODY_X + 0.06)
-#define DEFAULT_MMOTOR_Y DEFAULT_BODY_Y
-#define DEFAULT_MMOTOR_Z DEFAULT_BODY_Z
-
-#define DEFAULT_MMOTOR_MASS 0.01
+#define DEFAULT_TOPPLATE2_X (DEFAULT_TOPPLATE1_X + DEFAULT_TOPPLATE1_LENGTH/2.0)
+#define DEFAULT_TOPPLATE2_Y DEFAULT_TOPPLATE1_Y
+#define DEFAULT_TOPPLATE2_Z DEFAULT_TOPPLATE1_Z
 
 
-#define DEFAULT_ULTRASONICSENSOR_LENGTH 0.01
-#define DEFAULT_ULTRASONICSENSOR_WIDTH 0.03
-#define DEFAULT_ULTRASONICSENSOR_HEIGHT 0.01
+#define DEFAULT_TOPPLATE2_MASS 0.01
 
 
-#define DEFAULT_ULTRASONICSENSOR_X (DEFAULT_MMOTOR_X + 0.05)
-#define DEFAULT_ULTRASONICSENSOR_Y DEFAULT_MMOTOR_Y
-#define DEFAULT_ULTRASONICSENSOR_Z (DEFAULT_MMOTOR_Z + 0.06)
 
-#define DEFAULT_ULTRASONICSENSOR_MASS 0.01
+#define DEFAULT_TOPPLATE3_RADIUS DEFAULT_TOPPLATE1_WIDTH/2.0
+#define DEFAULT_TOPPLATE3_HEIGHT DEFAULT_TOPPLATE1_HEIGHT
 
-#define DEFAULT_MAX_ULTRASONICSENSOR_DISTANCE 100.0
+#define DEFAULT_TOPPLATE3_X (DEFAULT_TOPPLATE1_X - DEFAULT_TOPPLATE1_LENGTH/2.0)
+#define DEFAULT_TOPPLATE3_Y DEFAULT_TOPPLATE1_Y
+#define DEFAULT_TOPPLATE3_Z DEFAULT_TOPPLATE1_Z
+
+
+#define DEFAULT_TOPPLATE3_MASS 0.01
+
+
+
+
+
+#define DEFAULT_BOTTOMPLATE1_RADIUS DEFAULT_BODY_WIDTH/2.0
+#define DEFAULT_BOTTOMPLATE1_HEIGHT DEFAULT_TOPPLATE1_HEIGHT
+
+#define DEFAULT_BOTTOMPLATE1_X (DEFAULT_TOPPLATE1_X + DEFAULT_BODY_LENGTH/2.0)
+#define DEFAULT_BOTTOMPLATE1_Y DEFAULT_BODY_Y
+#define DEFAULT_BOTTOMPLATE1_Z (DEFAULT_BODY_Z - DEFAULT_BODY_HEIGHT/2.0 - DEFAULT_BOTTOMPLATE1_HEIGHT/2.0)
+
+
+#define DEFAULT_BOTTOMPLATE1_MASS 0.01
+
+
+
+#define DEFAULT_BOTTOMPLATE2_RADIUS DEFAULT_BODY_WIDTH/2.0
+#define DEFAULT_BOTTOMPLATE2_HEIGHT DEFAULT_TOPPLATE1_HEIGHT
+
+#define DEFAULT_BOTTOMPLATE2_X (DEFAULT_TOPPLATE1_X - DEFAULT_BODY_LENGTH/2.0)
+#define DEFAULT_BOTTOMPLATE2_Y DEFAULT_BODY_Y
+#define DEFAULT_BOTTOMPLATE2_Z DEFAULT_BOTTOMPLATE1_Z
+
+#define DEFAULT_BOTTOMPLATE2_MASS 0.01
+
+
+#define DEFAULT_MIDDLEPLATE_MASS 0.01
+
+#define DEFAULT_MIDDLEPLATE_RADIUS DEFAULT_BODY_WIDTH/2.0
+#define DEFAULT_MIDDLEPLATE_HEIGHT DEFAULT_TOPPLATE1_HEIGHT
+
+#define DEFAULT_MIDDLEPLATE_X (DEFAULT_BODY_X + DEFAULT_BODY_LENGTH/2.0)
+#define DEFAULT_MIDDLEPLATE_Y DEFAULT_BODY_Y
+#define DEFAULT_MIDDLEPLATE_Z DEFAULT_BODY_Z
+
+
+#define DEFAULT_MIDDLEPLATE_MASS 0.01
+
+
+
+
+
+
+#define DEFAULT_SUPPORTPLATE1_LENGTH 0.01
+#define DEFAULT_SUPPORTPLATE1_WIDTH 0.01
+#define DEFAULT_SUPPORTPLATE1_HEIGHT 0.005
+
+#define DEFAULT_SUPPORTPLATE1_X (DEFAULT_BOTTOMPLATE1_X + 0.01)
+#define DEFAULT_SUPPORTPLATE1_Y DEFAULT_BODY_Y
+#define DEFAULT_SUPPORTPLATE1_Z (DEFAULT_BOTTOMPLATE1_Z -  DEFAULT_BOTTOMPLATE2_HEIGHT/2.0 - DEFAULT_SUPPORTPLATE1_HEIGHT/2.0)
+
+
+#define DEFAULT_SUPPORTPLATE1_MASS 0.01
+
+
+
+#define DEFAULT_SUPPORTPLATE2_LENGTH DEFAULT_SUPPORTPLATE1_LENGTH
+#define DEFAULT_SUPPORTPLATE2_WIDTH DEFAULT_SUPPORTPLATE1_WIDTH
+#define DEFAULT_SUPPORTPLATE2_HEIGHT DEFAULT_SUPPORTPLATE1_HEIGHT
+
+#define DEFAULT_SUPPORTPLATE2_X (DEFAULT_BOTTOMPLATE2_X - 0.01)
+#define DEFAULT_SUPPORTPLATE2_Y DEFAULT_BODY_Y
+#define DEFAULT_SUPPORTPLATE2_Z DEFAULT_SUPPORTPLATE1_Z
+
+
+#define DEFAULT_SUPPORTPLATE2_MASS 0.01
+
+
+#define DEFAULT_RASPI_LENGTH 0.06
+#define DEFAULT_RASPI_WIDTH 0.05
+#define DEFAULT_RASPI_HEIGHT 0.005
+
+#define DEFAULT_RASPI_X DEFAULT_BODY_X
+#define DEFAULT_RASPI_Y DEFAULT_BODY_Y
+#define DEFAULT_RASPI_Z (DEFAULT_TOPPLATE1_Z + 0.01)
+
+
+#define DEFAULT_RASPI_MASS 0.01
+
+
+
+#define DEFAULT_MAX_IRSENSOR_DISTANCE 100.0
 
 
 #define DEFAULT_BLOCK_MASS 100
+
+//センサの位置
+//MIDDLE_PLATEからの距離
+
+#define DEFAULT_IRSENSOR1_X 0.02
+#define DEFAULT_IRSENSOR1_Y 0.03
+#define DEFAULT_IRSENSOR1_Z DEFAULT_MIDDLEPLATE_HEIGHT
+#define DEFAULT_IRSENSOR1_RADIUS M_PI/4
+
+
+#define DEFAULT_IRSENSOR2_X 0.01
+#define DEFAULT_IRSENSOR2_Y 0.04
+#define DEFAULT_IRSENSOR2_Z DEFAULT_MIDDLEPLATE_HEIGHT
+#define DEFAULT_IRSENSOR2_RADIUS 0
 
 
 #ifdef _MSC_VER
@@ -132,6 +188,25 @@
 #endif
 
 
+
+
+enum EDirection { 
+	Distance_10,
+	Distance_20,
+	Distance_30,
+	Distance_40,
+	Distance_50,
+	Distance_60,
+	Distance_70,
+	Distance_80,
+	Distance_90,
+	Distance_100,
+	Distance_150,
+	Distance_200,
+	Distance_250,
+	Distance_300,
+	Distance_NUM
+};
 
 
 
@@ -149,6 +224,25 @@ typedef struct {
   dReal    m,r,x,y,z,lx,ly,lz, the, dthe, ddthe, axisx, axisy, axisz, Tthe, Tdthe, Tddthe, tau, jx,jy,jz;
 } MyLink;
 
+
+/**
+* @class IRSensorData
+*@brief 距離センサの各種データ格納クラス
+*/
+class IRSensorData
+{
+public:
+	IRSensorData();
+	void setPos(double x, double y, double z);
+	double calcDistance(double x, double y, double z);
+	void resetDistance();
+	double getSensorData();
+	void setSensorParam(std::string d);
+	std::vector<double> sensorParam;
+	double data;
+	double current_x, current_y, current_z;
+};
+
 /**
 * @class RasPiMouse_Obj
 *@brief RasPiMouseの各種データ格納クラス
@@ -159,23 +253,9 @@ public:
 	RasPiMouseObj();
 	void setTargetVelocity(double vx, double va);
 	void setCurrentVelocity(double px, double py, double pa);
-	void setUltrasonicSensorPos(double x, double y, double z);
-	void setColourSensorPos(double x, double y, double z);
-	double calcUltrasonicSensorDistance(double x, double y, double z);
-	double calcColourSensorDistance(double x, double y, double z);
-	void resetUltrasonicSensorDistance();
-	void resetColourSensorDistance();
-	bool getRightTouch(double limit);
-	bool getLeftTouch(double limit);
 	double target_vx, target_va;
 	double current_px, current_py, current_pa;
-	double gyro_data;
-	double target_mangle, velocity_mmotor;
-	double current_ultrasonicSensorData, current_colourSensorData;
-	double right_touch_value, left_touch_value;
-	bool right_touch, left_touch;
-	double current_ultrasonicSensor_x, current_ultrasonicSensor_y, current_ultrasonicSensor_z;
-	double current_colourSensor_x, current_colourSensor_y, current_colourSensor_z;
+	IRSensorData ir_sensor[4];
 };
 /**
 * @class RasPiMouseSimulatorObj
@@ -193,8 +273,8 @@ public:
 	*/
 	~RasPiMouseSimulatorObj();
 	coil::Mutex mu;
-	MyLink RasPiMouseBlock, wheelLeft, wheelRight, wheelBall, touchSensorLeft[4], touchSensorRight[4], gyroSensor[3], colourSensor, mmotor, ultrasonicSensor[3];
-	dGeomID ultrasonicSensor_ray, colourSensor_ray;
+	MyLink centorUnit, wheelLeft, wheelRight, topPlate[3], middlePlate, bottomPlate[2], RaspPi, supportPlate[2];
+	dGeomID IRSensor_ray[4];
 	std::vector<MyLink> blocks;
 	bool plane_exist;
 	MyLink plane;
@@ -209,13 +289,9 @@ public:
 
 	
 	/**
-	*@brief 超音波距離センサを設定
+	*@brief 距離センサを設定
 	*/
-	void setUltrasonicSensorRay();
-	/**
-	*@brief カラーセンサを設定
-	*/
-	void setColourSensorRay();
+	void setIRSensorRay();
 	/**
 	*@brief 各パラメータの初期化を行う
 	*@param offset_z 高さを調整

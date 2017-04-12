@@ -27,7 +27,7 @@ public:
 		/**
 		*@brief コンストラクタ
 		*/
-	DrawThread_RasPiMouse(RasPiMouseSimulatorObj *so, double dt);
+		DrawThread_RasPiMouse(RasPiMouseSimulatorObj *so, double dt);
 		
 		/**
 		*@brief スレッド実行関数

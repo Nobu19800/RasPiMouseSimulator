@@ -161,37 +161,60 @@ void DrawThread_RasPiMouse::drawRobot()
 	{
 		m_so->mu.lock();
 
-		drawBox(&m_so->RasPiMouseBlock);
+		drawBox(&m_so->centorUnit);
 
 	
 		drawCylinder(&m_so->wheelLeft);
 		drawCylinder(&m_so->wheelRight);
-		drawSphere(&m_so->wheelBall);
 
-		drawBox(&m_so->touchSensorLeft[0]);
-		drawBox(&m_so->touchSensorLeft[1]);
-		drawBox(&m_so->touchSensorRight[0]);
-		drawBox(&m_so->touchSensorRight[1]);
-		drawBox(&m_so->touchSensorLeft[2]);
-		drawBox(&m_so->touchSensorRight[2]);
 
-		drawBox(&m_so->touchSensorLeft[3]);
-		drawBox(&m_so->touchSensorRight[3]);
+		drawBox(&m_so->topPlate[0]);
+		drawCylinder(&m_so->topPlate[1]);
+		drawCylinder(&m_so->topPlate[2]);
 
-		drawBox(&m_so->gyroSensor[0]);
-		drawBox(&m_so->gyroSensor[1]);
-		drawBox(&m_so->gyroSensor[2]);
-		drawBox(&m_so->colourSensor);
+		drawCylinder(&m_so->middlePlate);
 
-		drawBox(&m_so->mmotor);
-		drawBox(&m_so->ultrasonicSensor[0]);
-		drawBox(&m_so->ultrasonicSensor[1]);
-		drawBox(&m_so->ultrasonicSensor[2]);
+		drawCylinder(&m_so->bottomPlate[0]);
+		drawCylinder(&m_so->bottomPlate[1]);
 
-		/*const double pos0[3] = { m_so->RasPiMouse.current_ultrasonicSensor_x, m_so->RasPiMouse.current_ultrasonicSensor_y, m_so->RasPiMouse.current_ultrasonicSensor_z };
-		const double pos1[3] = { m_so->RasPiMouse.current_ultrasonicSensor_x, m_so->RasPiMouse.current_ultrasonicSensor_y, m_so->RasPiMouse.current_ultrasonicSensor_z - m_so->RasPiMouse.current_ultrasonicSensorData };
-		dsDrawLine(pos0, pos1);*/
+		drawBox(&m_so->RaspPi);
 
+
+		drawCylinder(&m_so->supportPlate[0]);
+		drawCylinder(&m_so->supportPlate[1]);
+
+
+		dsSetColorAlpha(1.0, 0, 0, 1.0);
+		
+
+
+		dVector3 ray_pos0, ray_pos1;
+
+		dBodyGetRelPointPos(m_so->middlePlate.body, DEFAULT_IRSENSOR2_X, DEFAULT_IRSENSOR2_Y, DEFAULT_IRSENSOR2_Z, ray_pos0);
+		dBodyGetRelPointPos(m_so->middlePlate.body, DEFAULT_IRSENSOR2_X + m_so->RasPiMouse.ir_sensor[3].data * cos(DEFAULT_IRSENSOR2_RADIUS), DEFAULT_IRSENSOR2_Y + m_so->RasPiMouse.ir_sensor[3].data*sin(DEFAULT_IRSENSOR2_RADIUS), DEFAULT_IRSENSOR2_Z, ray_pos1);
+		dsDrawLine(ray_pos0, ray_pos1);
+		
+
+
+
+
+		dBodyGetRelPointPos(m_so->middlePlate.body, DEFAULT_IRSENSOR1_X, DEFAULT_IRSENSOR1_Y, DEFAULT_IRSENSOR1_Z, ray_pos0);
+		dBodyGetRelPointPos(m_so->middlePlate.body, DEFAULT_IRSENSOR1_X + m_so->RasPiMouse.ir_sensor[2].data*cos(DEFAULT_IRSENSOR1_RADIUS), DEFAULT_IRSENSOR1_Y + m_so->RasPiMouse.ir_sensor[2].data*sin(DEFAULT_IRSENSOR1_RADIUS), DEFAULT_IRSENSOR1_Z, ray_pos1);
+		dsDrawLine(ray_pos0, ray_pos1);
+
+
+		dBodyGetRelPointPos(m_so->middlePlate.body, DEFAULT_IRSENSOR1_X, -DEFAULT_IRSENSOR1_Y, DEFAULT_IRSENSOR1_Z, ray_pos0);
+		dBodyGetRelPointPos(m_so->middlePlate.body, DEFAULT_IRSENSOR1_X + m_so->RasPiMouse.ir_sensor[1].data*cos(-DEFAULT_IRSENSOR1_RADIUS), -DEFAULT_IRSENSOR1_Y + m_so->RasPiMouse.ir_sensor[1].data*sin(-DEFAULT_IRSENSOR1_RADIUS), DEFAULT_IRSENSOR1_Z, ray_pos1);
+		dsDrawLine(ray_pos0, ray_pos1);
+
+
+
+
+		dBodyGetRelPointPos(m_so->middlePlate.body, DEFAULT_IRSENSOR2_X, -DEFAULT_IRSENSOR2_Y, DEFAULT_IRSENSOR2_Z, ray_pos0);
+		dBodyGetRelPointPos(m_so->middlePlate.body, DEFAULT_IRSENSOR2_X + m_so->RasPiMouse.ir_sensor[0].data*cos(-DEFAULT_IRSENSOR2_RADIUS), -DEFAULT_IRSENSOR2_Y + m_so->RasPiMouse.ir_sensor[0].data*sin(-DEFAULT_IRSENSOR2_RADIUS), DEFAULT_IRSENSOR2_Z, ray_pos1);
+		dsDrawLine(ray_pos0, ray_pos1);
+
+		//RasPiMouse.ir_sensor[0].data
 		if (m_so->plane_exist)
 		{
 			drawBox(&m_so->plane);
@@ -215,7 +238,7 @@ void DrawThread_RasPiMouse::resetCameraPosition()
 	m_so->mu.lock();
 	if (RCP_flag)
 	{
-		const dReal *pos = dBodyGetPosition(m_so->RasPiMouseBlock.body);
+		const dReal *pos = dBodyGetPosition(m_so->centorUnit.body);
 		float xyz[3] = { -0.3f + pos[0], 0.3f + pos[1], 0.2f + pos[2] };
 		float hpr[3] = { -40.0f, -30.0f, 0.0f };
 		dsSetViewpoint(xyz, hpr);
